@@ -59,40 +59,96 @@ const Map = ({ userType }) => {
                     showsHorizontalScrollIndicator={false}
                 />
                 </View>
-                <View style={styles.requestedBoxContainer}>
-                    <FlatList
-                        data={requested}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity onPress={
-                                () => navigation.navigate('Request', { userType: user })
-                            }>
-                                <View style={styles.requestedBox}>
-                                    <Text style={styles.requestedBoxTextTitle}>
-                                        Requester: 
-                                    </Text>
-                                    <Text style={styles.requestedBoxText}>
-                                        {"  "}{item.requester} 
-                                    </Text>
-                                    <Text style={styles.requestedBoxTextTitle}>
-                                        Pick Up / Drop Off:
-                                    </Text>
-                                    <Text style={styles.requestedBoxText}>
-                                        {"  "}{item.pickUpName} / {item.dropOff}
-                                    </Text>
-                                    <Text style={styles.requestedBoxTextTitle}>
-                                        Date / Time:
-                                    </Text>
-                                    <Text style={styles.requestedBoxText}>
-                                        {"  "}{item.date} / {item.time}
-                                    </Text>
+                <>
+                    {user === "driver" ? (
+                        <View style={styles.requestedBoxContainer}>
+                        <FlatList
+                            data={requested}
+                            renderItem={({ item }) => (
+                                <TouchableOpacity onPress={
+                                    () => navigation.navigate('Request', { userType: user })
+                                }>
+                                    <View style={styles.requestedBox}>
+                                        <Text style={styles.requestedBoxTextTitle}>
+                                            Requester: 
+                                        </Text>
+                                        <Text style={styles.requestedBoxText}>
+                                            {"  "}{item.requester} 
+                                        </Text>
+                                        <Text style={styles.requestedBoxTextTitle}>
+                                            Pick Up / Drop Off:
+                                        </Text>
+                                        <Text style={styles.requestedBoxText}>
+                                            {"  "}{item.pickUpName} / {item.dropOff}
+                                        </Text>
+                                        <Text style={styles.requestedBoxTextTitle}>
+                                            Date / Time:
+                                        </Text>
+                                        <Text style={styles.requestedBoxText}>
+                                            {"  "}{item.date} / {item.time}
+                                        </Text>
+                                    </View>
+                                </TouchableOpacity>
+                            )}
+                            keyExtractor={item => item.driverName}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                        />
+                        </View> 
+                    ) : (
+                             
+                        <View style={styles.requestedBoxContainer}>
+
+                            <TouchableOpacity onPress={() => navigation.navigate('Request', { userType: user, search: true })}>
+                                <View style={{...styles.locationDefault, width: 40}}>
+                                    <Text style={styles.locationDefaultText}>+</Text>
                                 </View>
                             </TouchableOpacity>
-                        )}
-                        keyExtractor={item => item.driverName}
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                    />
-                </View> 
+                            
+                            <FlatList
+                                data={accepted}
+                                renderItem={({ item }) => (
+                                    <TouchableOpacity onPress={
+                                        () => navigation.navigate('Request', { userType: user })
+                                    }>
+                                        <View style={styles.requestedBox}>
+                                            <Text style={styles.requestedBoxTextTitle}>
+                                                Driver: 
+                                            </Text>
+                                            <Text style={styles.requestedBoxText}>
+                                                {"  "}{item.driverName} 
+                                            </Text>
+                                            <Text style={styles.requestedBoxTextTitle}>
+                                                Requestor: 
+                                            </Text>
+                                            <Text style={styles.requestedBoxText}>
+                                                {"  "}{item.requester} 
+                                            </Text>
+                                            <Text style={styles.requestedBoxTextTitle}>
+                                                Pick Up / Drop Off:
+                                            </Text>
+                                            <Text style={styles.requestedBoxText}>
+                                                {"  "}{item.pickUpName} / {item.dropOff}
+                                            </Text>
+                                            <Text style={styles.requestedBoxTextTitle}>
+                                                Date / Time:
+                                            </Text>
+                                            <Text style={styles.requestedBoxText}>
+                                                {"  "}{item.date} / {item.time}
+                                            </Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                )}
+                                keyExtractor={item => item.requester}
+                                horizontal={true}
+                                showsHorizontalScrollIndicator={false}
+                            />
+                            
+                            
+                        </View> 
+                    )}
+                </>
+                
         </View>
         
     );
@@ -148,12 +204,13 @@ const styles = StyleSheet.create({
     requestedBoxContainer: {
         position: 'absolute',
         bottom: 0,
-        left: 0,
-        right: 0,
-        margin: 20,
-        padding: 10,
+        right: 20,
+        marginLeft: 20,
+        marginBottom: 20,
+        paddingLeft: 10,
         flexDirection: 'row',
         justifyContent: 'flex-end',
+        alignItems: 'flex-end',
     },
     requestedBox: {
         backgroundColor: "#33362D",

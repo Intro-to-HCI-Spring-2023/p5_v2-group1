@@ -92,9 +92,8 @@ const App = () => {
                     },
                   })}
                 >
-                {/* <Tab.Screen name="Request" component={Request} options={{ headerTitle: "", headerTransparent: true }} /> */}
                 <Tab.Screen name="Request" options={{ headerTitle: "", headerTransparent: true }}>
-                  {() => <Request userType={route.params?.userType} />}
+                  {({ route }) => <Request userType={route.params?.userType} search={route.params?.search} />}
                 </Tab.Screen>
                 <Tab.Screen name="Map" options={{ headerTitle: "", headerTransparent: true }}>
                   {() => <Map userType={route.params?.userType} />}
