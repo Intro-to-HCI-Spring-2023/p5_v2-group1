@@ -6,6 +6,7 @@ const COLORS = {
     quinary: "#B5C99E",
     senary: "#5B9F50",
     septenary: "#55AC52",
+    octonary: "#C3E8B7",
 }
 
 const FONT = {

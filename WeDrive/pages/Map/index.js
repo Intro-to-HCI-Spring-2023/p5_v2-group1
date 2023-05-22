@@ -3,7 +3,7 @@ import { useRouter, Stack } from "expo-router";
 import { View, ScrollView, SafeAreaView, Text, Image, StyleSheet, ImageBackground, TouchableOpacity } from "react-native";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import MapView from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import { FlatList } from "react-native";
 import { useRef } from "react/cjs/react.development";
 
@@ -42,6 +42,64 @@ const coordinates = {
 
 }
 
+const requested = [
+    {
+        driverName: "John Doe",
+        driverRating: 4,
+        driverCar: "Toyota Prius",
+        driverPlate: "ABC123",
+        pickUpName: "Umpleby's",
+        pickUpLocation: {
+            latitude: 43.700860,
+            longitude: -72.289400,
+        },
+        dropOff: "Lucky's @ Lebanon",
+        dropOffLocation: {
+            latitude: 43.642567,
+            longitude: -72.251991,
+        },
+        date: "5/22/2023",
+        time: "12:00 PM",
+    },
+    {
+        driverName: "Jane Doe",
+        driverRating: 4.5,
+        driverCar: "Lexus GS300",
+        driverPlate: "ZYX987",
+        pickUpName: "Dartmouth Hall",
+        pickUpLocation: {
+            latitude: 43.7044,
+            longitude: -72.2887,
+        },
+        dropOff: "WRJ",
+        dropOffLocation: {
+            latitude: 43.6467,
+            longitude: -72.3197,
+        },
+        date: "5/22/2023",
+        time: "12:00 PM",
+    },
+    {
+        driverName: "Ben Jerry",
+        driverRating: 5,
+        driverCar: "Ford F-150",
+        driverPlate: "XYZ789",
+        pickUpName: "Nugget Theater",
+        pickUpLocation: {
+            latitude: 43.7029,
+            longitude: -72.2895,
+        },
+        dropOff: "DHMC",
+        dropOffLocation: {
+            latitude: 43.642567,
+            longitude: -72.251991,
+        },
+        date: "5/22/2023",
+        time: "12:00 PM",
+    },
+
+]
+
 const Map = ({ userType }) => {
     const user = userType;
 
@@ -53,15 +111,26 @@ const Map = ({ userType }) => {
 
     const mapViewRef = useRef(null);
 
-
     return (
-        
         <View style={styles.container}>
             <MapView 
-                ref={ mapViewRef }
+                ref={mapViewRef}
                 style={styles.map} 
                 initialRegion={currentLocation}
-            />
+            >
+                {/* for each request in requested, create a marker */}
+                {requested.map((request) => (
+                    <>
+                        <Marker
+                            coordinate={request.pickUpLocation}
+                            title={request.pickUpName}
+                            description={request.dropOff}
+                            markerStyle={styles.marker}
+                        />
+                    </>
+                    
+                ))}
+            </MapView>
             <View style={styles.overlayContainer}>
                 {/* for each location in locations */}
                 <FlatList
@@ -80,11 +149,38 @@ const Map = ({ userType }) => {
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
                 />
-                <Text>
-                    {user}
-                </Text>
-
-            </View>
+                </View>
+                <View style={styles.requestedBoxContainer}>
+                    <FlatList
+                        data={requested}
+                        renderItem={({ item }) => (
+                            <View style={styles.requestedBox}>
+                                <Text style={styles.requestedBoxTextTitle}>
+                                    Driver: 
+                                </Text>
+                                <Text style={styles.requestedBoxText}>
+                                    {"  "}{item.driverName} ({item.driverRating} Stars)
+                                </Text>
+                                <Text style={styles.requestedBoxTextTitle}>
+                                    Pick Up / Drop Off:
+                                </Text>
+                                <Text style={styles.requestedBoxText}>
+                                    {"  "}{item.pickUpName} / {item.dropOff}
+                                </Text>
+                                <Text style={styles.requestedBoxTextTitle}>
+                                    Date / Time:
+                                </Text>
+                                <Text style={styles.requestedBoxText}>
+                                    {"  "}{item.date} / {item.time}
+                                </Text>
+                                
+                            </View>
+                        )}
+                        keyExtractor={item => item.driverName}
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                    />
+                </View> 
         </View>
         
     );
@@ -136,6 +232,37 @@ const styles = StyleSheet.create({
         color: COLORS.septenary,
         fontSize: 15,
         alignSelf: "center",
+    },
+    requestedBoxContainer: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        margin: 20,
+        padding: 10,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+    },
+    requestedBox: {
+        backgroundColor: "#33362D",
+        borderRadius: 16,
+        padding: 10,
+        marginRight: 10,
+    },
+    requestedBoxTextTitle: {
+        color: "white",
+        fontSize: 12,
+        fontWeight: "bold",
+    },
+    requestedBoxText: {
+        color: "white",
+        fontSize: 12,
+    },
+    marker: {
+        borderColor: 'green',
+        borderWidth: 2,
+        borderRadius: 10,
+        backgroundColor: 'white',
     },
 });
 
