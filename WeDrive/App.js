@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Onboard from "./pages/Onboard";
 import Map from "./pages/Map";
 import Profile from "./pages/Profile";
+import Request from "./pages/Request";
 import { View, ScrollView, SafeAreaView, Text } from "react-native";
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -18,14 +19,6 @@ import { COLORS } from "./constants";
 const Stack = createStackNavigator();
 
 const Tab = createBottomTabNavigator();
-
-const RequestScreen = () => {
-  return (
-    <View style={styles.container}>
-      <Text>Request Screen</Text>
-    </View>
-  );
-};
 
 const App = () => {
   return (
@@ -99,14 +92,12 @@ const App = () => {
                     },
                   })}
                 >
-                <Tab.Screen name="Request" component={RequestScreen} options={{ headerTitle: "", headerTransparent: true }} />
+                {/* <Tab.Screen name="Request" component={Request} options={{ headerTitle: "", headerTransparent: true }} /> */}
+                <Tab.Screen name="Request" options={{ headerTitle: "", headerTransparent: true }}>
+                  {() => <Request userType={route.params?.userType} />}
+                </Tab.Screen>
                 <Tab.Screen name="Map" options={{ headerTitle: "", headerTransparent: true }}>
-                  {
-                    () => 
-                    <Map 
-                      userType={route.params?.userType} 
-                    />
-                  }
+                  {() => <Map userType={route.params?.userType} />}
                 </Tab.Screen>
                 <Tab.Screen name="Profile" options={{ headerTitle: "", headerTransparent: true }}>
                   {() => <Profile userType={route.params?.userType} />}
