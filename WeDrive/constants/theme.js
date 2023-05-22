@@ -3,6 +3,9 @@ const COLORS = {
     secondary: "#357133",
     tertiary: "#EEEEC7",
     quaternary: "#84B96A",
+    quinary: "#B5C99E",
+    senary: "#5B9F50",
+    septenary: "#55AC52",
 }
 
 const FONT = {

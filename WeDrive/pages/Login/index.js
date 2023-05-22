@@ -2,35 +2,12 @@
 import { COLORS, SIZES, FONT } from "../../constants";
 import { useRouter, Stack } from "expo-router";
 import { View, ScrollView, SafeAreaView, Text, Image, StyleSheet, ImageBackground, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const Login = () => {
-    // const router = useRouter();
+    const navigation = useNavigation();
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.secondary }}>
-            {/* <Stack.Screen 
-                options={{
-                    headerStyle: {
-                        backgroundColor: COLORS.secondary,
-                    },
-                    headerShadowVisible: false,
-                    headerLeft: () => (
-                        <View>
-                            <Text>
-                                Back
-                            </Text>
-                        </View>
-                    ),
-                    headerRight: () => (
-                        <View>
-                            <Text>
-                                Next
-                            </Text>
-                        </View>
-                    ),
-                    headerTitle: ""
-                }}
-            /> */}
-
             <ScrollView>
                 <View style={styles.container}>
 
@@ -42,14 +19,12 @@ const Login = () => {
                     </ImageBackground>
 
                     {/* BUTTONS */}
-                    <TouchableOpacity style={styles.buttonPrimary}>
-                        <Text style={styles.buttonPrimaryText}>
-                            LOGIN
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.buttonSecondary}>
+                    <TouchableOpacity 
+                        style={styles.buttonSecondary}
+                        onPress={() => navigation.navigate('Onboard')}                    
+                    >
                         <Text style={styles.buttonSecondaryText}>
-                            SIGN UP
+                            Prototype
                         </Text>
                     </TouchableOpacity>
 
@@ -116,7 +91,8 @@ const styles = StyleSheet.create({
         borderColor: COLORS.tertiary,
         borderWidth: 1,
         borderRadius: 25,
-        marginTop: 25,
+        marginTop: 60,
+        marginBottom: 90,
         alignSelf: 'center',
         width: 225,
         shadowColor: 'rgba(0,0,0, .4)', // IOS
