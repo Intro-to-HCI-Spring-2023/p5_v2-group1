@@ -21,7 +21,31 @@ const formatTime = (time) => {
     return time.toLocaleTimeString("en-US", options);
 }
 
+const StarRating = ({ numberStars, onStarPress }) => {
+    const renderStars = () => {
+        const stars = [];
+        for (let i = 0; i < 5; i++) {
+          const starColor = i < numberStars ? "green" : "gray";
+          stars.push(
+            <TouchableOpacity key={i} onPress={() => onStarPress(i + 1)}>
+              <Ionicons
+                name="star"
+                size={24}
+                color={starColor}
+                style={{ marginRight: 5 }}
+              />
+            </TouchableOpacity>
+          );
+        }
+        return stars;
+      };
+    
+      return <View style={{ flexDirection: "row" }}>{renderStars()}</View>;
+}
+
 const Request = ({ userType, search = false }) => {
+    const navigation = useNavigation();
+
     // driver functionality
     const [view, setView] = useState("new");
     const [requestedRides, setRequestedRides] = useState(requested);
@@ -43,6 +67,24 @@ const Request = ({ userType, search = false }) => {
     const [isDateOpen, setIsDateOpen] = useState(false);
     const [isTimeOpen, setIsTimeOpen] = useState(false);
     const [riderState, setRiderState] = useState("upcoming");
+
+    // map the requester of each ride in completed to a false initially
+    const [completedExpandedState, setCompletedExpandedState] = useState(completed.reduce((acc, item) => {
+        acc[item.requester] = false;
+        return acc;
+    }, {}));
+
+    const [numberStars, setNumberStars] = useState(completed.reduce((acc, item) => {
+        acc[item.requester] = 0;
+        return acc;
+    }, {}));
+
+    const handleExpandedItem = (requester) => {
+        setCompletedExpandedState((prevState) => ({
+            ...prevState,
+            [requester]: !prevState[requester],
+        }));
+    }
 
     const handleDateChange = (event, selectedDate) => {
         // Update the selected date/time
@@ -441,7 +483,9 @@ const Request = ({ userType, search = false }) => {
                         <FlatList
                             data={completed}
                             renderItem={({ item }) => (
+                                <View>
                                 <View style={styles.listContainer}>
+                                    <View style={styles.contentContainer}>
                                     <View style={styles.imageContainer}>
                                         <Image source={require('../../assets/driver.png')} style={styles.image} />
                                     </View>
@@ -455,11 +499,53 @@ const Request = ({ userType, search = false }) => {
                                         <Text style={styles.listTitle}>EST DURATION / DISTANCE</Text>
                                         <Text style={styles.listText}>{"    "}15 min / 2 mi</Text>
                                         <View style={{marginTop: 2, ...styles.buttonConatiner}}>
-                                            <TouchableOpacity>
+                                            <TouchableOpacity onPress={() => handleExpandedItem(item.requester)}>
                                                 <MaterialIcons name="rate-review" size={24} color="gray" />
                                             </TouchableOpacity>
                                         </View>
+                                        
                                     </View>
+                                    
+                                    </View>
+                                    
+                                </View>
+                                {completedExpandedState[item.requester] && (
+                                    <View>
+                                        <Text style={styles.listHeader}>Stars:</Text>
+                                        <StarRating numberStars={numberStars[item.requester]} onStarPress={(rating) => setNumberStars((prevState) => ({
+                                            ...prevState,
+                                            [item.requester]: rating,
+                                        }))} />
+
+                                        <Text style={styles.listHeader}>Review:</Text>
+                                        <TextInput
+                                            style={{...styles.input, height: 80}}
+                                            placeholder="Review"
+                                            placeholderTextColor={COLORS.septenary}
+                                            multiline={true}                                            
+                                        />
+
+                                        {/* BUTTON */}
+                                        <TouchableOpacity
+                                            style={styles.buttonPrimary}
+                                            onPress={() => {
+                                                setCompletedExpandedState((prevState) => ({
+                                                    ...prevState,
+                                                    [item.requester]: false,
+                                                }));
+                                                setDialogTitle("You have reviewed a ride!");
+                                                setDialogBody("You have reviewed a ride that you have previously completed. Thank you for your feedback!");
+                                                setIsOpen(true);
+                                            }}
+                                        >
+                                            <Text style={styles.buttonPrimaryText}>
+                                                Submit
+                                            </Text>
+                                        </TouchableOpacity>
+
+                                    </View>
+                                    
+                                )}
                                 </View>
                             )}
                             keyExtractor={item => item.requester}
@@ -607,6 +693,10 @@ const styles = StyleSheet.create({
     dateTimeContainer: {
         flexDirection: 'row',
     },
+    contentContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+      },
 
 });
 
