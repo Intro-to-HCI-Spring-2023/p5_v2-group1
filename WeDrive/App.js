@@ -7,6 +7,8 @@ import Onboard from "./pages/Onboard";
 import Map from "./pages/Map";
 import Profile from "./pages/Profile";
 import Request from "./pages/Request";
+import Review from "./pages/Review";
+
 import { View, ScrollView, SafeAreaView, Text } from "react-native";
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
