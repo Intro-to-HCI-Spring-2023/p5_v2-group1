@@ -4,6 +4,7 @@ const longitudeDelta = 0.0421;
 const locations = [
     "hanover", "lebanon", "wrj", "montpelier",
 ]
+//test
 
 const coordinates = {
     "hanover" : {
