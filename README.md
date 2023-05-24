@@ -8,9 +8,7 @@ TODO:
 - demo video
 - add photos?
 
-Team Members: Ari Grewal, Gia Kim, Duowen Chen, Melissa Valencia
-
-GitHub usernames for each team member: @ajgrewal
+Team Members: Ari Grewal (@ajgrewal), Gia Kim (@gia-kim), Duowen Chen, Melissa Valencia (@melissavalencia)
 
 ## Other releavant details about your repository below:
 
