@@ -2,10 +2,6 @@
 
 ## P5 - Final Prototype (WeDrive)
 
-TODO:
-
-- add github usernames
-
 Team Members: Ari Grewal (@ajgrewal), Gia Kim (@gia-kim), Duowen Chen, Melissa Valencia (@melissavalencia)
 
 ## Other releavant details about your repository below:
