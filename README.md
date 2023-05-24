@@ -50,4 +50,5 @@ npx expo start
 
 ### Demo Video
 
-The link to the demo video on a physical device is linked [here](https://youtu.be/YhsfCruvyMA)
+The link to the demo video (without voiceover) on a physical device is linked [here](https://youtu.be/YhsfCruvyMA)
+The link to the demo video (with voiceover) on a physical device is linked [here](https://youtu.be/OPhva7_xlD8)
