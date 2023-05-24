@@ -53,3 +53,7 @@ npx expo start
 ```
 
 5. Access functional prototype using Android, Apple, or Web
+
+### Demo Video
+
+The link to the demo video on a physical device is linked [here](https://youtu.be/YhsfCruvyMA)
