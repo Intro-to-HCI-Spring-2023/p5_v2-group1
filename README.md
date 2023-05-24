@@ -5,8 +5,6 @@
 TODO:
 
 - add github usernames
-- demo video
-- add photos?
 
 Team Members: Ari Grewal (@ajgrewal), Gia Kim (@gia-kim), Duowen Chen, Melissa Valencia (@melissavalencia)
 
