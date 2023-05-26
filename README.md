@@ -2,7 +2,7 @@
 
 ## P5 - Final Prototype (WeDrive)
 
-Team Members: Ari Grewal (@ajgrewal), Gia Kim (@gia-kim), Duowen Chen, Melissa Valencia (@melissavalencia)
+Team Members: Ari Grewal (@ajgrewal), Gia Kim (@gia-kim), Duowen Chen (@CDWJ), Melissa Valencia (@melissavalencia)
 
 ## Other releavant details about your repository below:
 
